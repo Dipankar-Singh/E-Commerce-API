@@ -18,7 +18,12 @@ const addCategory = async (req, res) => {
 const getAllCategory = async (_, res) => {
   try {
     const allCategory = await category.find();
-    return res.status(200).json(allCategory);
+    const formattedData = allCategory.map((item) => ({
+      categoryId: item._id,
+      categoryName: item.categoryName,
+      categoryDescription: item.categoryDescription,
+    }));
+    return res.status(200).json(formattedData);
   } catch (error) {
     return res.status(500).json(`Internal Server Error ${error}`);
   }

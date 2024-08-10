@@ -1,5 +1,4 @@
 const Product = require("../Models/productSchema");
-
 const addProduct = async (req, res) => {
   try {
     const { productName, productDescription, categoryId } = req.body;
@@ -32,7 +31,15 @@ const getAllProduct = async (req, res) => {
       select: "_id categoryName",
     });
 
-    return res.status(200).json(listOfProducts);
+    const formattedData = listOfProducts.map((item) => ({
+      productId: item._id,
+      categoryId: item.categoryId._id,
+      categoryName: item.categoryId.categoryName,
+      productImage: item.productImage,
+      productName: item.productName,
+      productDescription: item.productDescription,
+    }));
+    return res.status(200).json(formattedData);
   } catch (error) {
     return res
       .status(500)
