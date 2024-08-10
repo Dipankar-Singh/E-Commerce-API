@@ -23,5 +23,5 @@ router.get("/getAllProduct", getAllProduct);
 router.get("/getAllUser/:id", verifyToken, getAllUser);
 router.post("/addItemCart", addItemCart);
 router.get("/getAllCartData", getAllCartData);
-router.get("/getCartDataOfUser", getCartDataOfUser);
+router.get("/getCartDataOfUser/:id", getCartDataOfUser);
 module.exports = router;

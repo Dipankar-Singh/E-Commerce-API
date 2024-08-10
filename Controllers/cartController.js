@@ -46,7 +46,7 @@ const getCartDataOfUser = async (req, res) => {
   try {
     const id = req.params.id;
     const getallData = await cart
-      .find({ id })
+      .find({ userId: id })
       .populate({
         path: "userId",
         select: "userName _id",
@@ -55,6 +55,9 @@ const getCartDataOfUser = async (req, res) => {
         path: "productId",
         select: "_id productName productImage",
       });
+    if (!getallData) {
+      return res.status(400).json({ msg: "User Not Found" });
+    }
     return res.status(200).json(getallData);
   } catch (error) {
     return res.status(500).json({ msg: `Internal Server Error ${error}` });
