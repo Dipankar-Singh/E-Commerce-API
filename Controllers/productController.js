@@ -1,16 +1,18 @@
 const Product = require("../Models/productSchema");
 const addProduct = async (req, res) => {
   try {
-    const { productName, productDescription, categoryId } = req.body;
+    const { productName, productDescription, categoryId, productPrice } =
+      req.body;
     const productImage = req.file?.path;
 
-    if (!productName || !categoryId) {
+    if (!productName || !categoryId || !productPrice) {
       return res.status(400).json({ msg: "Necessary Data is missing" });
     }
 
     const creatingProduct = new Product({
       productImage,
       productName,
+      productPrice,
       productDescription,
       categoryId,
     });
@@ -36,6 +38,7 @@ const getAllProduct = async (req, res) => {
       categoryId: item.categoryId._id,
       categoryName: item.categoryId.categoryName,
       productImage: item.productImage,
+      productPrice: item.productPrice,
       productName: item.productName,
       productDescription: item.productDescription,
     }));

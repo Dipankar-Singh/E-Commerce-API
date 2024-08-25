@@ -8,6 +8,10 @@ const productSchema = new Schema(
       ref: "category",
       required: true,
     },
+    productPrice: {
+      type: String,
+      required: true,
+    },
     productImage: {
       type: String,
       required: true,
